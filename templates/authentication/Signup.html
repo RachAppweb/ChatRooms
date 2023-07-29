@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+{% block title%}
+Signup
+{%endblock%}
+
+
+{% block content %}
+<div class="text-center"style="margin-top: 18%;;margin-left: auto;margin-right: auto;">
+    <h1>Signup</h1>
+<div class="card" style="max-width: fit-content;margin: auto;padding:15px">
+<form method="POST" action="{%url 'signup' %}" style="    max-width: fit-content;margin: auto;">
+    {% csrf_token%}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">username</label>
+      <input type="text"name="username" class="form-control" id="exampleInputEmail1" >
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password"  name="password1"class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">confirm_Password</label>
+        <input type="password" name="password2" class="form-control" id="exampleInputPassword1">
+      </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  {% if form.errors%}
+  {% for field in form%}
+  {% for error in field.errors%}
+  <div class="mb-5 p-4 rounded ">
+    <p>{{error|escape}}</p>
+  </div>
+  {% endfor%}
+  {%endfor%}
+  {% endif%}
+</div>
+</div>
+  {%endblock%}

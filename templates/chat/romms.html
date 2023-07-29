@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+{% block title%}
+Romms
+{%endblock%}
+
+{% block content %}
+<div class="text-center"style="margin-top: 15%;">
+    <h1>Romms</h1>
+    <p>Hello and welcom to ChatRooms which is a demo web applications where you can create your own group and intreact with poeple who might enter your room or the contrary </p>
+    <p>To create your room you have to be logged in and click on create room,you can also delete it if you want</p>
+    {% if user.is_authenticated%}
+    <a href="{% url 'createroom'%}" class="btn" style="background: #4081f2;">create room</a><br><br>
+    {%endif%}
+    <div class="row">
+        {% for room in rooms%}
+        <div class="col-sm-6 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body">
+              {% if user.is_authenticated%}
+              {% if room.user.username == request.user.username%}
+              <a href="{% url 'deleteroom' room.id%}" class="btn btn-danger" style="float: right;">delete</a>
+              {%endif%}
+              {%endif%}
+              <h5 class="card-title">{{room.name}}</h5>
+              <p class="card-text">{{room.description}}</p>
+              <a href="{% url 'roomchat' room.slug %}" class="btn btn-primary">join</a>
+            </div>
+          </div>
+         
+        </div>
+        {% endfor%}
+        
+        
+        
+      </div>
+</div>
+
+{% endblock %}
